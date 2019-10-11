@@ -58,12 +58,20 @@ class Node:
         self.pointers = self.pointers[:divider+1]
         return new_key, new_node
 
-    def print(self):
-        '''print nodes recursively'''
+    def operate(self, val, val2):
+        '''find if val is present in the current node
+        or its next neigbhours'''
+        count = 0
         for key in self.keys:
-            print(key, end=", ")
-        print('\n')
-        if self.is_leaf == False:
-            for pointer in self.pointers:
-                pointer.print()
-                print(end="\t")
+            if key >= val and key <= val2:
+                count += 1
+            elif key > val2:
+                return count
+        if self.next is not None:
+            return count + self.next.operate(val, val2)
+        return count
+        
+    def print(self):
+        for key in self.keys[:-1]:
+            print(key, end=', ')
+        print(self.keys[-1], end='\t')

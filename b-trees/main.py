@@ -19,20 +19,27 @@ if __name__ == '__main__':
     for line in lines:
         line = line.strip().split(' ')
         if line[0] == 'INSERT':
-            val = int(line[1])
+            val = float(line[1])
             ret, new_key, new_node = btree.insert(btree.root, val)
             btree.change_root(ret, new_key, new_node)
-            btree.print()
         
         elif line[0] == 'FIND':
-            val = int(line[1])
-            btree.find(val)
+            val = float(line[1])
+            ret = btree.operate(btree.root, 'find', val, val)
+            if ret == 0:
+                print('NO')
+            elif ret:
+                print('YES')
 
         elif line[0] == 'COUNT':
-            val = int(line[1])
-            btree.count(val)
+            val = float(line[1])
+            ret = btree.operate(btree.root, 'count', val, val)
+            print(ret)
 
         elif line[0] == 'RANGE':
-            x = int(line[1])
-            y = int(line[2])
-            btree.range(x, y)
+            x = float(line[1])
+            y = float(line[2])
+            ret = btree.operate(btree.root, 'range', x, y)
+            print(ret)
+
+    # btree.print()
